@@ -1,0 +1,24 @@
+﻿{
+  "BrowserPath": "C:\\Program Files\\Firefox Developer Edition\\firefox.exe",
+  "Environments" :[
+    {
+      "Name": "My Jira",
+      "Prefixes": [
+        "PREFIX1",
+        "PREFIX2",
+        "PREFIX3"
+      ],
+      "RootUrl": "https://Url.To.My.Jira.com/"
+    },
+    {
+      "Name": "My Jira Two",
+      "Prefixes": [
+        "PREFIX4",
+        "PREFIX5",
+        "PREFIX6"
+      ],
+      "RootUrl": "https://Url.To.My.JiraTwo.com/"
+    }
+
+  ]
+}

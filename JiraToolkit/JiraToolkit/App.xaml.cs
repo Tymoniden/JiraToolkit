@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using Shuriken.Monitoring;
 
 namespace JiraToolkit
 {
@@ -13,5 +9,21 @@ namespace JiraToolkit
     /// </summary>
     public partial class App : Application
     {
+        [STAThread]
+        public static void Main()
+        {
+            var app = new App();
+            app.InitializeComponent();
+
+            var applicationMonitorScope = new ApplicationMonitorScope(new WpfNotificationContext(app.Dispatcher));
+            try
+            {
+                app.Run();
+            }
+            finally
+            {
+                applicationMonitorScope.Dispose().GetAwaiter().GetResult();
+            }
+        }
     }
 }

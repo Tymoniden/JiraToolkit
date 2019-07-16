@@ -2,11 +2,49 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:jiraToolkit="clr-namespace:JiraToolkit"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:JiraToolkit"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Jira Toolkit"
+        MaxWidth="800"
+        MaxHeight="600"
+        Focusable="False"
+        d:DataContext="{d:DesignInstance Type=jiraToolkit:MainViewModel}"
+        x:ClassModifier="internal"
+        ResizeMode="CanMinimize"
+        SizeToContent="WidthAndHeight"
+        WindowStyle="ToolWindow"
+        mc:Ignorable="d">
+    <TabControl>
+        <TabItem Header="Tickets">
+        <ItemsControl ItemsSource="{Binding Environments, Mode=OneTime}"
+                  Focusable="False">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Width="200" Text="{Binding Name, Mode=OneTime}"
+                               Focusable="False" />
+                    <Separator />
+                    <ItemsControl ItemsSource="{Binding Entries, Mode=OneTime}"
+                                  Focusable="False">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBox x:Name="TicketTextBox"
+                                             Width="200"
+                                             Margin="5"
+                                             KeyDown="OpenTicketNumber"
+                                             Focusable="True"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </TabItem>
+        <TabItem Header="Git">
+
+        </TabItem>
+    </TabControl>
 </Window>

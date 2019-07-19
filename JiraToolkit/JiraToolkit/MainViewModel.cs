@@ -18,6 +18,9 @@ namespace JiraToolkit
         public QueryViewModel[] Queries { get; private set; }
 
         [Observable]
+        public bool StayOnTop { get; private set; }
+
+        [Observable]
         public Command UpdateConfigurationCommand { get; private set; }
 
         public void UpdateConfiguration()
@@ -26,6 +29,7 @@ namespace JiraToolkit
             var dto = JsonConvert.DeserializeObject<Configuration>(json);
             Environments = dto.Environments.Where(x => x != null).Select((x) => new EnvironmentViewModel(x)).ToArray();
             Queries = dto.Queries.Where(x => x != null).Select(x => new QueryViewModel() { Name = x.Name, Url = x.Url }).ToArray();
+            StayOnTop = dto.StayOnTop ?? false;
         }
     }
 }

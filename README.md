@@ -14,6 +14,8 @@ Use the configuration.json to configure the application, fill it with jira envir
 
 ```json
 {
+
+  "StayOnTop": true,
   "Environments" :[
     {
       "Name": "My Jira",
@@ -56,3 +58,8 @@ The ```{{param}}``` tag will be replaced with the value inside the Textbox of th
 "Url": "https://github.com/{{param}}"
 ```
 Enter ```Tymoniden``` into the corresponding parameter Textbox and press enter. The default browser will open with the url ```https://github.com/Tymoniden```.
+
+### Stay On Top
+
+The stay on top property controls the Topmost property of the wpf window. To let the application force into the front, just set the ```StayOnTop``` property in the configuration file to ```true```.
+This property is optional and set to false, when there is no value applied in the configuration.

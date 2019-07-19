@@ -11,9 +11,10 @@
         x:ClassModifier="internal"
         Focusable="False"
         Loaded="Initialize"
-        ResizeMode="CanMinimize"
+        ResizeMode="NoResize"
         SizeToContent="WidthAndHeight"
         WindowStyle="ToolWindow"
+        Topmost="{Binding StayOnTop, Mode=OneWay}"
         mc:Ignorable="d">
     <TabControl>
         <TabItem Header="Tickets">

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using JiraToolkit.Dtos;
 using JiraToolkit.ViewModels;
 
 namespace JiraToolkit

@@ -8,13 +8,12 @@ The jira toolkit application is used to provide an easy way to manage multiple j
 
 ## Configuration
 
-Use the configuration.json to configure the application and fill it with jira environments and ticket prefixes. An example configuration is included after installation in the application folder.
+Use the configuration.json to configure the application, fill it with jira environments and ticket prefixes. An example configuration is included after installation in the application folder.
 
 ### Example Configuration
 
 ```json
 {
-  "BrowserPath" :"C:\\Program Files\\Firefox Developer Edition\\firefox.exe",
   "Environments" :[
     {
       "Name": "My Jira",

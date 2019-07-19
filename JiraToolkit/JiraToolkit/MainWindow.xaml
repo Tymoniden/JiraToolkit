@@ -16,35 +16,32 @@
         mc:Ignorable="d">
     <TabControl>
         <TabItem Header="Tickets">
-        <ItemsControl ItemsSource="{Binding Environments, Mode=OneTime}"
+            <ItemsControl ItemsSource="{Binding Environments, Mode=OneTime}"
                   Focusable="False">
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Width="200" Text="{Binding Name, Mode=OneTime}"
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Width="200" Text="{Binding Name, Mode=OneTime}"
                                Focusable="False" />
-                    <Separator />
-                    <ItemsControl ItemsSource="{Binding Entries, Mode=OneTime}"
+                            <Separator />
+                            <ItemsControl ItemsSource="{Binding Entries, Mode=OneTime}"
                                   Focusable="False">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <TextBox x:Name="TicketTextBox"
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBox x:Name="TicketTextBox"
                                              Width="200"
                                              Margin="5"
                                              KeyDown="OpenTicketNumber"
                                              Focusable="True"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
             </ItemsControl>
-        </TabItem>
-        <TabItem Header="Git">
-
         </TabItem>
     </TabControl>
 </Window>

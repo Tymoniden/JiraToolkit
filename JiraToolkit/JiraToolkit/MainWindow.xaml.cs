@@ -1,8 +1,6 @@
 ﻿using System.Diagnostics;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using JiraToolkit.Properties;
 using JiraToolkit.ViewModels;
 
 namespace JiraToolkit
@@ -36,10 +34,7 @@ namespace JiraToolkit
 
                 var process = new Process
                 {
-                    StartInfo = new ProcessStartInfo(_viewmodel.BrowserPath)
-                    {
-                        Arguments = entry.Root + "browse/" + entry.Prefix + $"-{textBox.Text}"
-                    }
+                    StartInfo = new ProcessStartInfo(entry.Root + "browse/" + entry.Prefix + $"-{textBox.Text}")
                 };
                 process.Start();
             }

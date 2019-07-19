@@ -1,4 +1,4 @@
-﻿namespace JiraToolkit
+﻿namespace JiraToolkit.Dtos
 {
     internal sealed class Environment
     {

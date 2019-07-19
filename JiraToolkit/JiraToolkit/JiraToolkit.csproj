@@ -106,7 +106,7 @@
     </Compile>
     <Compile Include="Dtos\Configuration.cs" />
     <Compile Include="Dtos\Environment.cs" />
-    <Compile Include="ViewModels\EnvironmentEntry.cs" />
+    <Compile Include="ViewModels\EnvironmentEntryViewModel.cs" />
     <Compile Include="ViewModels\EnvironmentViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -157,6 +157,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Image\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

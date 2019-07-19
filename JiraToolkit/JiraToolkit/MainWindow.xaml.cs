@@ -28,15 +28,8 @@ namespace JiraToolkit
 
             if (sender is TextBox textBox)
             {
-                var entry = textBox.DataContext as EnvironmentEntry;
-                Debug.Assert(entry != null, nameof(entry) + " != null");
-                Debug.Assert(_viewmodel != null, nameof(_viewmodel) + " != null");
-
-                var process = new Process
-                {
-                    StartInfo = new ProcessStartInfo(entry.Root + "browse/" + entry.Prefix + $"-{textBox.Text}")
-                };
-                process.Start();
+                var entry = textBox.DataContext as EnvironmentEntryViewModel;
+                entry.OpenTicketCommand.Execute();
             }
         }
     }

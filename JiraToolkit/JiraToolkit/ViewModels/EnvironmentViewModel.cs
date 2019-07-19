@@ -9,10 +9,10 @@ namespace JiraToolkit
         public EnvironmentViewModel(Environment environment)
         {
             Name = environment.Name;
-            Entries = new List<EnvironmentEntry>();
+            Entries = new List<EnvironmentEntryViewModel>();
             foreach (var prefix in environment.Prefixes)
             {
-                Entries.Add(new EnvironmentEntry
+                Entries.Add(new EnvironmentEntryViewModel
                 {
                     Root = environment.RootUrl,
                     Prefix = prefix
@@ -22,6 +22,6 @@ namespace JiraToolkit
 
         public string Name { get; }
 
-        public List<EnvironmentEntry> Entries { get;}
+        public List<EnvironmentEntryViewModel> Entries { get;}
     }
 }

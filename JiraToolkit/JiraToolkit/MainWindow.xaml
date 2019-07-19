@@ -7,33 +7,42 @@
         Title="Jira Toolkit"
         MaxWidth="800"
         MaxHeight="600"
-        Focusable="False"
         d:DataContext="{d:DesignInstance Type=jiraToolkit:MainViewModel}"
         x:ClassModifier="internal"
+        Focusable="False"
         ResizeMode="CanMinimize"
         SizeToContent="WidthAndHeight"
         WindowStyle="ToolWindow"
         mc:Ignorable="d">
     <TabControl>
         <TabItem Header="Tickets">
-            <ItemsControl ItemsSource="{Binding Environments, Mode=OneTime}"
-                  Focusable="False">
+            <ItemsControl Focusable="False" ItemsSource="{Binding Environments, Mode=OneTime}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Width="200" Text="{Binding Name, Mode=OneTime}"
-                               Focusable="False" />
+                            <TextBlock Width="200"
+                                       Focusable="False"
+                                       Text="{Binding Name, Mode=OneTime}" />
                             <Separator />
-                            <ItemsControl ItemsSource="{Binding Entries, Mode=OneTime}"
-                                  Focusable="False">
+                            <ItemsControl Focusable="False" ItemsSource="{Binding Entries, Mode=OneTime}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
                                             <TextBox x:Name="TicketTextBox"
-                                             Width="200"
-                                             Margin="5"
-                                             KeyDown="OpenTicketNumber"
-                                             Focusable="True"/>
+                                                     Grid.Column="0"
+                                                     Width="200"
+                                                     Margin="5,5,0,5"
+                                                     Focusable="True"
+                                                     KeyDown="OpenTicketNumber"
+                                                     Text="{Binding TicketNumber, Mode=TwoWay}" />
+                                            <Button Grid.Column="1"
+                                                    Margin="0,5,5,5"
+                                                    Command="{Binding OpenTicketCommand, Mode=OneTime}"
+                                                    Content="-&gt;" />
                                         </Grid>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>

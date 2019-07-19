@@ -19,6 +19,8 @@ namespace JiraToolkit
             DataContext = _viewmodel = new MainViewModel();
         }
 
+
+
         void OpenTicketNumber(object sender, KeyEventArgs e)
         {
             if (e != null && e.Key != Key.Enter)
@@ -31,6 +33,14 @@ namespace JiraToolkit
                 var entry = textBox.DataContext as EnvironmentEntryViewModel;
                 entry.OpenTicketCommand.Execute();
             }
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+
+            // Begin dragging the window
+            DragMove();
         }
     }
 }

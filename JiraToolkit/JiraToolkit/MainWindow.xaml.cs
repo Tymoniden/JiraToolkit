@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using JiraToolkit.ViewModels;
@@ -45,6 +46,11 @@ namespace JiraToolkit
                 var query = textBox.DataContext as QueryViewModel;
                 query.OpenQueryCommand.Execute();
             }
+        }
+
+        void Initialize(object sender, RoutedEventArgs e)
+        {
+            _viewmodel.UpdateConfiguration();
         }
     }
 }

@@ -1,102 +1,104 @@
-﻿<Window x:Class="JiraToolkit.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:jiraToolkit="clr-namespace:JiraToolkit"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Title="Jira Toolkit"
-        MaxWidth="800"
-        MaxHeight="600"
-        d:DataContext="{d:DesignInstance Type=jiraToolkit:MainViewModel}"
-        x:ClassModifier="internal"
-        Focusable="False"
-        Loaded="Initialize"
-        ResizeMode="NoResize"
-        SizeToContent="WidthAndHeight"
-        WindowStyle="ToolWindow"
-        Topmost="{Binding StayOnTop, Mode=OneWay}"
-        mc:Ignorable="d">
-    <TabControl>
-        <TabItem Header="Tickets">
-            <StackPanel Orientation="Vertical">
-                <Button Width="25"
-                        Height="25"
-                        Margin="5"
-                        HorizontalAlignment="Right"
-                        Command="{Binding UpdateConfigurationCommand, Mode=OneTime}">
-                    <TextBlock VerticalAlignment="Center"
-                               FontSize="20"
-                               Text="⟳" />
-                </Button>
-                <ItemsControl Focusable="False" ItemsSource="{Binding Environments, Mode=OneWay}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Width="200"
-                                           Focusable="False"
-                                           Text="{Binding Name, Mode=OneTime}" />
-                                <Separator />
-                                <ItemsControl Focusable="False" ItemsSource="{Binding Entries, Mode=OneTime}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-                                                <TextBox Grid.Column="0"
-                                                         Width="200"
-                                                         Margin="5,5,0,5"
-                                                         Focusable="True"
-                                                         KeyDown="OpenTicketNumber"
-                                                         Text="{Binding TicketNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                                <Button Grid.Column="1"
-                                                        Margin="0,5,5,5"
-                                                        Command="{Binding OpenTicketCommand, Mode=OneTime}"
-                                                        Content="⇨" />
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+﻿<Window
+    x:Class="JiraToolkit.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:jiraToolkit="clr-namespace:JiraToolkit"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Jira Toolkit"
+    d:DataContext="{d:DesignInstance Type=jiraToolkit:MainViewModel}"
+    x:ClassModifier="internal"
+    Background="Black"
+    Focusable="False"
+    Foreground="PaleTurquoise"
+    Loaded="Initialize"
+    MouseDown="Window_MouseDown"
+    ResizeMode="NoResize"
+    SizeToContent="WidthAndHeight"
+    Topmost="{Binding StayOnTop, Mode=OneWay}"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <StackPanel Orientation="Vertical">
+        <Button
+            Width="25"
+            Height="25"
+            Margin="5"
+            HorizontalAlignment="Right"
+            Command="{Binding UpdateConfigurationCommand, Mode=OneTime}"
+            Visibility="Collapsed">
+            <TextBlock
+                VerticalAlignment="Center"
+                FontSize="20"
+                Text="⟳" />
+        </Button>
+        <ItemsControl Focusable="False" ItemsSource="{Binding Environments, Mode=OneWay}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock
+                            Width="100"
+                            Margin="10,5,0,5"
+                            HorizontalAlignment="Left"
+                            Focusable="False"
+                            Text="{Binding Name, Mode=OneTime}" />
+                        <ItemsControl Focusable="False" ItemsSource="{Binding Entries, Mode=OneTime}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox
+                                            Grid.Column="0"
+                                            Focusable="True"
+                                            KeyDown="OpenTicketNumber"
+                                            Text="{Binding TicketNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <Button
+                                            Grid.Column="1"
+                                            Command="{Binding OpenTicketCommand, Mode=OneTime}"
+                                            Content="GO" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
-                <Separator />
-                <Label Content="Queries" />
-                <ItemsControl Focusable="False" ItemsSource="{Binding Queries, Mode=OneWay}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Row="0"
-                                       Grid.Column="0"
-                                       Content="{Binding Name, Mode=OneWay}" />
-                                <TextBox Grid.Row="1"
-                                         Grid.Column="0"
-                                         Width="200"
-                                         Margin="5,5,0,5"
-                                         Focusable="True"
-                                         KeyDown="OpenQueryCommand"
-                                         Text="{Binding Parameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Button Grid.Row="1"
-                                        Grid.Column="1"
-                                        Margin="0,5,5,5"
-                                        Command="{Binding OpenQueryCommand, Mode=OneTime}"
-                                        Content="⇨" />
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
-        </TabItem>
-    </TabControl>
+        <ItemsControl Focusable="False" ItemsSource="{Binding Queries, Mode=OneWay}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Padding="5,0,0,0"
+                            Content="{Binding Name, Mode=OneWay}"
+                            Foreground="White" />
+                        <TextBox
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Focusable="True"
+                            KeyDown="OpenQueryCommand"
+                            Text="{Binding Parameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Command="{Binding OpenQueryCommand, Mode=OneTime}"
+                            Content="GO" />
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
 </Window>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?define JiraToolkit_TargetDir=$(var.JiraToolkit.TargetDir)?>
+	<Product Id="*" Name="JiraToolkit" Language="1033" Version="1.0.0.0" Manufacturer="Tymoniden" UpgradeCode="249d8d0f-4e7c-4ba7-8bdb-9287b5f53f4c">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perUser" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes" />
+
+		<Feature Id="ProductFeature" Title="JiraToolkit.Installation" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="StartMenuComponents" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="JiraToolkit" />
+			</Directory>
+
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="JiraToolkit"/>
+      </Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="Configuration.json" Guid="120a8e39-caa2-4494-b48d-d04667cc6bee">
+        <File Id="Configuration.json" Name="Configuration.json" Source="$(var.JiraToolkit_TargetDir)Configuration.json" />
+      </Component>
+      <Component Id="JiraToolkit.exe" Guid="330b9dba-77ba-45a4-85f3-cc52bb31924f">
+        <File Id="JiraToolkit.exe" Name="JiraToolkit.exe" Source="$(var.JiraToolkit_TargetDir)JiraToolkit.exe" />
+      </Component>
+      <Component Id="JiraToolkit.exe.config" Guid="b8a47291-bd92-49a6-a2c1-fa8a89a40cf2">
+        <File Id="JiraToolkit.exe.config" Name="JiraToolkit.exe.config" Source="$(var.JiraToolkit_TargetDir)JiraToolkit.exe.config" />
+      </Component>
+      <Component Id="Shuriken.Wpf.dll" Guid="3afaadb4-2e2e-498a-b497-79df8f561992">
+        <File Id="Shuriken.Wpf.dll" Name="Shuriken.Wpf.dll" Source="$(var.JiraToolkit_TargetDir)Shuriken.Wpf.dll" />
+      </Component>
+      <Component Id="Newtonsoft.Json.dll" Guid="cef22510-0b3f-4696-8458-1faa42ff9436">
+        <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.JiraToolkit_TargetDir)Newtonsoft.Json.dll" />
+      </Component>
+		</ComponentGroup>
+
+    <ComponentGroup Id="StartMenuComponents" Directory="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="*">
+        <Shortcut Id="JiraToolkitShortcut"
+                  Name="JiraToolkit"
+                  Description="Jira shortcut application"
+                  Target="[#JiraToolkit.exe]"
+                  WorkingDirectory="INSTALLFOLDER"/>
+        <RemoveFolder Id="RemoveShortCuts" Directory="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\JiraToolkit" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

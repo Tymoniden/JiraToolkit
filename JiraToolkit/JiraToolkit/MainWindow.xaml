@@ -11,25 +11,15 @@
     Background="Black"
     Focusable="False"
     Foreground="PaleTurquoise"
+    KeyUp="RefreshConfiguration"
     Loaded="Initialize"
-    MouseDown="Window_MouseDown"
+    MouseDown="MoveWindow"
     ResizeMode="NoResize"
     SizeToContent="WidthAndHeight"
     Topmost="{Binding StayOnTop, Mode=OneWay}"
     WindowStyle="None"
     mc:Ignorable="d">
     <StackPanel Orientation="Vertical">
-        <Button
-            Width="25"
-            Height="25"
-            Margin="5"
-            HorizontalAlignment="Right"
-            Command="{Binding UpdateConfigurationCommand, Mode=OneTime}">
-            <TextBlock
-                VerticalAlignment="Center"
-                FontSize="20"
-                Text="⟳" />
-        </Button>
         <ItemsControl Focusable="False" ItemsSource="{Binding Environments, Mode=OneWay}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>

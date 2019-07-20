@@ -55,12 +55,20 @@ namespace JiraToolkit
             _viewmodel.UpdateConfiguration();
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void MoveWindow(object sender, MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
 
             // Begin dragging the window
             DragMove();
+        }
+
+        private void RefreshConfiguration(object sender, KeyEventArgs e)
+        {
+            if(e?.Key == Key.F5)
+            {
+                _viewmodel.UpdateConfiguration();
+            }
         }
     }
 }

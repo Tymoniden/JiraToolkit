@@ -1,5 +1,5 @@
 ﻿{
-  "Environments" :[
+  "Environments": [
     {
       "Name": "My Jira",
       "Prefixes": [
@@ -18,6 +18,11 @@
       ],
       "RootUrl": "https://Url.To.My.JiraTwo.com/"
     }
-
+  ],
+  "Queries": [
+    {
+      "Name": "Query One",
+      "Url": "{{param}}"
+    }
   ]
 }

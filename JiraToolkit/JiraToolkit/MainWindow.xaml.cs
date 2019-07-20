@@ -35,6 +35,20 @@ namespace JiraToolkit
             }
         }
 
+        void OpenQueryCommand(object sender, KeyEventArgs e)
+        {
+            if (e != null && e.Key != Key.Enter)
+            {
+                return;
+            }
+
+            if (sender is TextBox textBox)
+            {
+                var query = textBox.DataContext as QueryViewModel;
+                query.OpenQueryCommand.Execute();
+            }
+        }
+
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);

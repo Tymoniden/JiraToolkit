@@ -33,7 +33,26 @@ Use the configuration.json to configure the application, fill it with jira envir
       ],
       "RootUrl": "https://Url.To.My.JiraTwo.com/"
     }
-
+  ],
+    "Queries": [
+    {
+      "Name" : "Query One",
+      "Url" : "{{param}}"
+    }
   ]
 }
 ```
+
+### Using Queries
+
+A query is an object which contains a parameterizable Url and its name. The name is used so the user can easily recognize the corresponding query url.
+```{{param}}``` is used to mark a parameter inside the Url. Currently only one parameter is supported inside a query url.
+
+#### Example
+
+The ```{{param}}``` tag will be replaced with the value inside the Textbox of the query object.
+
+```
+"Url": "https://github.com/{{param}}"
+```
+Enter ```Tymoniden``` into the corresponding parameter Textbox and press enter. The default browser will open with the url ```https://github.com/Tymoniden```.

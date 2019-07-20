@@ -1,83 +1,91 @@
-﻿<Window
-    x:Class="JiraToolkit.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:jiraToolkit="clr-namespace:JiraToolkit"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Jira Toolkit"
-    MaxWidth="800"
-    MaxHeight="600"
-    d:DataContext="{d:DesignInstance Type=jiraToolkit:MainViewModel}"
-    x:ClassModifier="internal"
-    Background="Black"
-    Focusable="False"
-    Foreground="PaleTurquoise"
-    MouseDown="Window_MouseDown"
-    ResizeMode="CanMinimize"
-    SizeToContent="WidthAndHeight"
-    WindowStyle="None"
-    mc:Ignorable="d">
-    <ItemsControl Focusable="False" ItemsSource="{Binding Environments, Mode=OneTime}">
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <StackPanel Margin="0,10,0,0" Orientation="Vertical">
-                    <TextBlock
-                        Width="100"
-                        Margin="0,0,0,5"
-                        Focusable="False"
-                        Text="{Binding Name, Mode=OneTime}" />
-                    <!--<Separator Margin="5,0,5,0" BorderBrush="DarkSlateGray" />-->
-                    <ItemsControl Focusable="False" ItemsSource="{Binding Entries, Mode=OneTime}">
+﻿<Window x:Class="JiraToolkit.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:jiraToolkit="clr-namespace:JiraToolkit"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="Jira Toolkit"
+        MaxWidth="800"
+        MaxHeight="600"
+        d:DataContext="{d:DesignInstance Type=jiraToolkit:MainViewModel}"
+        x:ClassModifier="internal"
+        Focusable="False"
+        ResizeMode="CanMinimize"
+        SizeToContent="WidthAndHeight"
+        WindowStyle="ToolWindow"
+        mc:Ignorable="d">
+    <TabControl>
+            <TabItem Header="Tickets">
+                <StackPanel Orientation="Vertical">
+                    <ItemsControl Focusable="False" ItemsSource="{Binding Environments, Mode=OneTime}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Width="200"
+                                               Focusable="False"
+                                               Text="{Binding Name, Mode=OneTime}" />
+                                    <Separator />
+                                    <ItemsControl Focusable="False" ItemsSource="{Binding Entries, Mode=OneTime}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBox Grid.Column="0"
+                                                             Width="200"
+                                                             Margin="5,5,0,5"
+                                                             Focusable="True"
+                                                             KeyDown="OpenTicketNumber"
+                                                             Text="{Binding TicketNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                                    <Button Grid.Column="1"
+                                                            Margin="0,5,5,5"
+                                                            Command="{Binding OpenTicketCommand, Mode=OneTime}"
+                                                            Content="-&gt;" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Separator />
+                    <Label Content="Queries" />
+                    <ItemsControl Focusable="False" ItemsSource="{Binding Queries, Mode=OneTime}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBox
-                                        x:Name="TicketTextBox"
-                                        Grid.Column="0"
-                                        Width="100"
-                                        Margin="5,5,0,5"
-                                        Padding="3"
-                                        VerticalAlignment="Center"
-                                        Background="#FF272727"
-                                        BorderThickness="0"
-                                        Focusable="True"
-                                        Foreground="DarkTurquoise"
-                                        KeyDown="OpenTicketNumber"
-                                        Text="{Binding TicketNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <Button
-                                        Grid.Column="1"
-                                        Margin="5,5,5,5"
-                                        Background="Black"
-                                        BorderThickness="0"
-                                        Command="{Binding OpenTicketCommand, Mode=OneTime}"
-                                        Content="GO"
-                                        Foreground="White">
-                                        <Button.Style>
-                                            <Style TargetType="Button">
-                                                <Setter Property="Background" Value="Black" />
-
-                                                <Style.Triggers>
-                                                    <Trigger Property="Border.IsMouseOver" Value="True">
-                                                        <Setter Property="Background" Value="Green" />
-                                                    </Trigger>
-                                                    <Trigger Property="IsEnabled" Value="False">
-                                                        <Setter Property="Background" Value="Black" />
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Button.Style>
-                                    </Button>
+                                    <Label Grid.Row="0"
+                                           Grid.Column="0"
+                                           Content="{Binding Name, Mode=OneWay}" />
+                                    <TextBox Grid.Row="1"
+                                             Grid.Column="0"
+                                             Width="200"
+                                             Margin="5,5,0,5"
+                                             Focusable="True"
+                                             KeyDown="OpenQueryCommand"
+                                             Text="{Binding Parameter, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                    <Button Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="0,5,5,5"
+                                            Command="{Binding OpenQueryCommand, Mode=OneTime}"
+                                            Content="-&gt;" />
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </StackPanel>
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+            </TabItem>
+        </TabControl>
 </Window>

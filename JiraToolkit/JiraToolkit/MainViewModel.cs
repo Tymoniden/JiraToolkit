@@ -17,6 +17,8 @@ namespace JiraToolkit
         [Observable]
         public QueryViewModel[] Queries { get; private set; }
 
+        public bool HasQueries => Queries.Any();
+
         [Observable]
         public bool StayOnTop { get; private set; }
 

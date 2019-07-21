@@ -1,7 +1,8 @@
-﻿<Window
+﻿<Controls:MetroWindow
     x:Class="JiraToolkit.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:jiraToolkit="clr-namespace:JiraToolkit"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,6 +16,8 @@
     Loaded="Initialize"
     MouseDown="MoveWindow"
     ResizeMode="NoResize"
+    ShowCloseButton="False"
+    ShowTitleBar="False"
     SizeToContent="WidthAndHeight"
     Topmost="{Binding StayOnTop, Mode=OneWay}"
     WindowStyle="None"
@@ -40,6 +43,7 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBox
                                             Grid.Column="0"
+                                            Controls:TextBoxHelper.Watermark="{Binding Prefix, Mode=TwoWay}"
                                             Focusable="True"
                                             KeyDown="OpenTicketNumber"
                                             Text="{Binding TicketNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -56,7 +60,18 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <ItemsControl Focusable="False" ItemsSource="{Binding Queries, Mode=OneWay}">
+        <TextBlock
+            Width="100"
+            Margin="10,5,0,5"
+            HorizontalAlignment="Left"
+            Focusable="False"
+            Text="Queries"
+            Visibility="{Binding HasQueries, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+        <ItemsControl
+            Focusable="False"
+            ItemsSource="{Binding Queries, Mode=OneWay}"
+            Visibility="{Binding HasQueries, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -68,15 +83,11 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Padding="5,0,0,0"
-                            Content="{Binding Name, Mode=OneWay}"
-                            Foreground="White" />
+
                         <TextBox
                             Grid.Row="1"
                             Grid.Column="0"
+                            Controls:TextBoxHelper.Watermark="{Binding Name, Mode=TwoWay}"
                             Focusable="True"
                             KeyDown="OpenQueryCommand"
                             Text="{Binding Parameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -90,4 +101,4 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
     </StackPanel>
-</Window>
+</Controls:MetroWindow>

@@ -22,5 +22,69 @@ namespace JiraToolkit.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("JiraToolKit")]
+        public string ConfigurationFolderName {
+            get {
+                return ((string)(this["ConfigurationFolderName"]));
+            }
+            set {
+                this["ConfigurationFolderName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Configuration.json")]
+        public string ConfigurationFile {
+            get {
+                return ((string)(this["ConfigurationFile"]));
+            }
+            set {
+                this["ConfigurationFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"{
+  ""StayOnTop"": true,
+  ""Environments"": [
+    {
+      ""Name"": ""My Jira"",
+      ""Prefixes"": [
+        ""PREFIX1"",
+        ""PREFIX2"",
+        ""PREFIX3""
+      ],
+      ""RootUrl"": ""https://Url.To.My.Jira.com/""
+    },
+    {
+      ""Name"": ""My Jira Two"",
+      ""Prefixes"": [
+        ""PREFIX4"",
+        ""PREFIX5"",
+        ""PREFIX6""
+      ],
+      ""RootUrl"": ""https://Url.To.My.JiraTwo.com/""
+    }
+  ],
+  ""Queries"": [
+    {
+      ""Name"": ""Query One"",
+      ""Url"": ""{{param}}""
+    }
+  ]
+}")]
+        public string Configuration {
+            get {
+                return ((string)(this["Configuration"]));
+            }
+            set {
+                this["Configuration"] = value;
+            }
+        }
     }
 }

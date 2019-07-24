@@ -20,8 +20,6 @@ namespace JiraToolkit
             DataContext = _viewmodel = new MainViewModel();
         }
 
-
-
         void OpenTicketNumber(object sender, KeyEventArgs e)
         {
             if (e != null && e.Key != Key.Enter)
@@ -50,10 +48,7 @@ namespace JiraToolkit
             }
         }
 
-        void Initialize(object sender, RoutedEventArgs e)
-        {
-            _viewmodel.UpdateConfiguration();
-        }
+        async void Initialize(object sender, RoutedEventArgs e) => await _viewmodel.Initialize().ConfigureAwait(false);
 
         private void MoveWindow(object sender, MouseButtonEventArgs e)
         {

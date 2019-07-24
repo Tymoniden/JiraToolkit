@@ -1,5 +1,43 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="JiraToolkit.Properties" GeneratedClassName="Settings">
   <Profiles />
-  <Settings />
+  <Settings>
+    <Setting Name="ConfigurationFolderName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">JiraToolKit</Value>
+    </Setting>
+    <Setting Name="ConfigurationFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Configuration.json</Value>
+    </Setting>
+    <Setting Name="Configuration" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{
+  "StayOnTop": true,
+  "Environments": [
+    {
+      "Name": "My Jira",
+      "Prefixes": [
+        "PREFIX1",
+        "PREFIX2",
+        "PREFIX3"
+      ],
+      "RootUrl": "https://Url.To.My.Jira.com/"
+    },
+    {
+      "Name": "My Jira Two",
+      "Prefixes": [
+        "PREFIX4",
+        "PREFIX5",
+        "PREFIX6"
+      ],
+      "RootUrl": "https://Url.To.My.JiraTwo.com/"
+    }
+  ],
+  "Queries": [
+    {
+      "Name": "Query One",
+      "Url": "{{param}}"
+    }
+  ]
+}</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

@@ -52,6 +52,12 @@ namespace JiraToolkit
 
         private void MoveWindow(object sender, MouseButtonEventArgs e)
         {
+            if (e.LeftButton != MouseButtonState.Pressed ||
+                e.RightButton != MouseButtonState.Released ||
+                e.MiddleButton != MouseButtonState.Released)
+            {
+                return;
+            }
             base.OnMouseLeftButtonDown(e);
 
             // Begin dragging the window

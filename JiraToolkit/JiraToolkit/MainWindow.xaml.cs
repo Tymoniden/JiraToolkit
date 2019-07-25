@@ -31,6 +31,7 @@ namespace JiraToolkit
             {
                 var entry = textBox.DataContext as EnvironmentEntryViewModel;
                 entry.OpenTicketCommand.Execute();
+                e.Handled = true;
             }
         }
 
@@ -45,6 +46,7 @@ namespace JiraToolkit
             {
                 var query = textBox.DataContext as QueryViewModel;
                 query.OpenQueryCommand.Execute();
+                e.Handled = true;
             }
         }
 
@@ -63,6 +65,7 @@ namespace JiraToolkit
             if(e?.Key == Key.F5)
             {
                 _viewmodel.UpdateConfiguration();
+                e.Handled = true;
             }
         }
     }

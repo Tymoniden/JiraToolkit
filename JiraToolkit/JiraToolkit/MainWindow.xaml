@@ -45,7 +45,7 @@
                                             Grid.Column="0"
                                             Controls:TextBoxHelper.Watermark="{Binding Prefix, Mode=TwoWay}"
                                             Focusable="True"
-                                            KeyDown="OpenTicketNumber"
+                                            KeyUp="OpenTicketNumber"
                                             Text="{Binding TicketNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                         <Button
                                             Grid.Column="1"
@@ -89,7 +89,7 @@
                             Grid.Column="0"
                             Controls:TextBoxHelper.Watermark="{Binding Name, Mode=TwoWay}"
                             Focusable="True"
-                            KeyDown="OpenQueryCommand"
+                            KeyUp="OpenQueryCommand"
                             Text="{Binding Parameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             Grid.Row="1"

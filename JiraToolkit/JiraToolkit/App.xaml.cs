@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
@@ -10,7 +10,7 @@ namespace JiraToolkit
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    internal partial class App : Application
     {
         static readonly ILog logger = LogManager.GetLogger(typeof(Application));
 
@@ -28,12 +28,13 @@ namespace JiraToolkit
             }
             finally
             {
-                applicationMonitorScope.Dispose().GetAwaiter().GetResult();
+                applicationMonitorScope.Dispose()?.GetAwaiter().GetResult();
             }
         }
 
         static void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
+
             logger.Fatal("An exception which terminates the application occurred", e.Exception);
 
             var result = MessageBox.Show(

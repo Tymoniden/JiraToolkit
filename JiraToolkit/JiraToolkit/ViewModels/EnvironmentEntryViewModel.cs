@@ -3,13 +3,13 @@ using Shuriken;
 
 namespace JiraToolkit.ViewModels
 {
-    internal sealed class EnvironmentEntryViewModel : ObservableObject
+    internal class EnvironmentEntryViewModel : ObservableObject
     {
         public EnvironmentEntryViewModel() => OpenTicketCommand = new Command(ExecuteOpenTicket, CanExecuteOpenTicket);
 
         public string Prefix { get; set; }
 
-        public string Root { get; set; }
+        public string Root { private get; set; }
 
         [Observable]
         public string TicketNumber { get; set; }

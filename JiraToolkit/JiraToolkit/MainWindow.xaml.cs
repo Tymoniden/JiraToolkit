@@ -1,14 +1,10 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using JiraToolkit.ViewModels;
 
 namespace JiraToolkit
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     internal partial class MainWindow
     {
         readonly MainViewModel _viewmodel;
@@ -30,8 +26,11 @@ namespace JiraToolkit
             if (sender is TextBox textBox)
             {
                 var entry = textBox.DataContext as EnvironmentEntryViewModel;
-                entry.OpenTicketCommand.Execute();
-                e.Handled = true;
+                if (entry != null)
+                {
+                    entry.OpenTicketCommand?.Execute();
+                    e.Handled = true;
+                }
             }
         }
 
@@ -45,18 +44,19 @@ namespace JiraToolkit
             if (sender is TextBox textBox)
             {
                 var query = textBox.DataContext as QueryViewModel;
-                query.OpenQueryCommand.Execute();
-                e.Handled = true;
+                if (query != null)
+                {
+                    query.OpenQueryCommand?.Execute();
+                    e.Handled = true;
+                }
             }
         }
 
         async void Initialize(object sender, RoutedEventArgs e) => await _viewmodel.Initialize().ConfigureAwait(false);
 
-        private void MoveWindow(object sender, MouseButtonEventArgs e)
+        void MoveWindow(object sender, MouseButtonEventArgs e)
         {
-            if (e.LeftButton != MouseButtonState.Pressed ||
-                e.RightButton != MouseButtonState.Released ||
-                e.MiddleButton != MouseButtonState.Released)
+            if (e.LeftButton != MouseButtonState.Pressed || e.RightButton != MouseButtonState.Released || e.MiddleButton != MouseButtonState.Released)
             {
                 return;
             }
@@ -66,11 +66,11 @@ namespace JiraToolkit
             DragMove();
         }
 
-        private void RefreshConfiguration(object sender, KeyEventArgs e)
+        void RefreshConfiguration(object sender, KeyEventArgs e)
         {
-            if(e?.Key == Key.F5)
+            if (e?.Key == Key.F5)
             {
-                _viewmodel.UpdateConfiguration();
+                _viewmodel?.UpdateConfiguration();
                 e.Handled = true;
             }
         }

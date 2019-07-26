@@ -1,6 +1,4 @@
 ﻿using System.Reflection;
-using System.Resources;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -10,9 +8,9 @@ using System.Windows;
 [assembly: AssemblyTitle("JiraToolkit")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("SCCM")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("JiraToolkit")]
-[assembly: AssemblyCopyright("Copyright © SCCM 2019")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -45,13 +43,13 @@ using System.Windows;
 //
 //      Major Version
 //      Minor Version
-//      Build Number
 //      Revision
+//      Build Number
 //
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.9.1.0")]
+[assembly: AssemblyFileVersion("0.9.1.0.0")]
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config")]

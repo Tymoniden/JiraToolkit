@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Diagnostics;
 using JiraToolkit.Dtos;
-using JiraToolkit.ViewModels;
 
-namespace JiraToolkit
+namespace JiraToolkit.ViewModels
 {
-    internal sealed class EnvironmentViewModel
+    internal class EnvironmentViewModel
     {
         public EnvironmentViewModel(Environment environment)
         {
@@ -22,6 +22,6 @@ namespace JiraToolkit
 
         public string Name { get; }
 
-        public List<EnvironmentEntryViewModel> Entries { get;}
+        public List<EnvironmentEntryViewModel> Entries { get; }
     }
 }

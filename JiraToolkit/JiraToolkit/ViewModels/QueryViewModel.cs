@@ -1,17 +1,17 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Shuriken;
 
 namespace JiraToolkit.ViewModels
 {
     internal class QueryViewModel : ObservableObject
     {
-        public QueryViewModel() => OpenQueryCommand = new Command(ExecuteOpenQueryCommand,CanExecuteOpenQueryCommand);
+        public QueryViewModel() => OpenQueryCommand = new Command(ExecuteOpenQueryCommand, CanExecuteOpenQueryCommand);
 
         [Observable]
         public string Name { get; set; }
 
-        [Observable]
-        public string Url { get; set; }
+        public string Url { private get; set; }
 
         [Observable]
         public string Parameter { get; set; }
@@ -23,8 +23,13 @@ namespace JiraToolkit.ViewModels
 
         void ExecuteOpenQueryCommand()
         {
-            var query = Url.Replace("{{param}}", Parameter);
-            var process = new Process { StartInfo = new ProcessStartInfo(query)};
+            var query = Url?.Replace("{{param}}", Parameter);
+            if (query == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var process = new Process { StartInfo = new ProcessStartInfo(query) };
             process.Start();
         }
     }

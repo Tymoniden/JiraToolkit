@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    xmlns:System="clr-namespace:System;assembly=mscorlib">
-    <System:Double x:Key="FloatingWatermarkFontSize">9</System:Double>
+    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:Double x:Key="FloatingWatermarkFontSize">9</system:Double>
 
     <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
         <Setter Property="Margin" Value="5,5,0,5" />
@@ -13,8 +13,7 @@
         <Setter Property="Background" Value="#FF272727" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Foreground" Value="DarkTurquoise" />
-        <Setter Property="Padding" Value="3" />
-        <Setter Property="Controls:TextBoxHelper.UseFloatingWatermark" Value="True" />
+        <Setter Property="controls:TextBoxHelper.UseFloatingWatermark" Value="True" />
     </Style>
 
     <Style TargetType="{x:Type Button}">

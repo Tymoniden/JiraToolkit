@@ -1,7 +1,7 @@
 # JiraToolkit
 
 ## Packages
-![Beta 0.9 (JiraToolkit.Installation.msi)](./Binaries/JiraToolkit.Installation.msi "Beta version before code cleanup but with all intended features for v.1.")
+![1.0.0.0 RC1 (JiraToolkit 1.0.0.0 RC.msi)](./Binaries/JiraToolkit 1.0.0.0 RC.msi "Release candidate for version 1")
 
 ## Usage
 The jira toolkit application is used to provide an easy way to manage multiple jira environments. It is possible to fill in multiple different jira urls and prefixes for tickets. The textboxes for each environment allow the user to enter a number, press enter and jump directly to the ticket, without opening jira and manually searching for the tickets.

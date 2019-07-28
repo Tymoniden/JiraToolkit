@@ -2,7 +2,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?define JiraToolkit_TargetDir=$(var.JiraToolkit.TargetDir)?>
 	<Product Id="*" Name="JiraToolkit" Language="1033" Version="1.0.0.0" Manufacturer="Tymoniden" UpgradeCode="249d8d0f-4e7c-4ba7-8bdb-9287b5f53f4c">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" InstallPrivileges="elevated"/>
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" InstallPrivileges="elevated" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate EmbedCab="yes" />
@@ -17,16 +17,8 @@
       <UIRef Id="WixUI_InstallDir" />
 
       <!-- Skip license dialog -->
-      <Publish Dialog="WelcomeDlg"
-               Control="Next"
-               Event="NewDialog"
-               Value="InstallDirDlg"
-               Order="2">1</Publish>
-      <Publish Dialog="InstallDirDlg"
-               Control="Back"
-               Event="NewDialog"
-               Value="WelcomeDlg"
-               Order="2">1</Publish>
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="2">1</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">1</Publish>
     </UI>
 
     <Feature Id="ProductFeature" Title="JiraToolkit.Installation" Level="1">
@@ -75,6 +67,12 @@
       </Component>
       <Component Id="System.Windows.Interactivity.dll" Guid="b0808cf3-e681-4ec2-8e05-aa63761b28ca">
         <File Id="System.Windows.Interactivity.dll" Name="System.Windows.Interactivity.dll" Source="$(var.JiraToolkit_TargetDir)System.Windows.Interactivity.dll" />
+      </Component>
+      <Component Id="log4net.dll" Guid="f4112c3b-eff2-42ea-9dd2-75ff9d0899b9">
+        <File Id="log4net.dll" Name="log4net.dll" Source="$(var.JiraToolkit_TargetDir)log4net.dll" />
+      </Component>
+      <Component Id="log4net.config" Guid="492f2793-9884-45d8-a1eb-9bd83baac945">
+        <File Id="log4net.config" Name="log4net.config" Source="$(var.JiraToolkit_TargetDir)log4net.config" />
       </Component>
     </ComponentGroup>
 

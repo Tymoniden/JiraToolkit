@@ -1,6 +1,7 @@
 # JiraToolkit
 
 ## Usage
+
 The jira toolkit application is used to provide an easy way to manage multiple jira environments. It is possible to fill in multiple different jira urls and prefixes for tickets. The textboxes for each environment allow the user to enter a number, press enter and jump directly to the ticket, without opening jira and manually searching for the tickets.
 
 ![alt text](./Images/application.png "Example configuration, with two jiras and three ticket prefixes for each jira.")

@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:system="clr-namespace:System;assembly=mscorlib">
+
     <system:Double x:Key="FloatingWatermarkFontSize">9</system:Double>
 
     <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">

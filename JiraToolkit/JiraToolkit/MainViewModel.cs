@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using JiraToolkit.Dtos;
@@ -12,12 +11,11 @@ using JiraToolkit.Properties;
 using JiraToolkit.ViewModels;
 using log4net;
 using Newtonsoft.Json;
-using Shuriken;
 using Environment = System.Environment;
 
 namespace JiraToolkit
 {
-    internal sealed class MainViewModel : ObservableObject
+    internal sealed class MainViewModel
     {
         static readonly ILog logger = LogManager.GetLogger(typeof(Application));
 
@@ -27,26 +25,21 @@ namespace JiraToolkit
 
         public MainViewModel()
         {
-
             configurationFolderPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 Settings.Default.ConfigurationFolderName);
+
             configurationFilePath = Path.Combine(configurationFolderPath, Settings.Default.ConfigurationFile);
         }
 
-        [Observable]
         public EnvironmentViewModel[] Environments { get; private set; }
 
-        [Observable]
         public bool HasEnvironments => Environments?.Any() ?? false;
 
-        [Observable]
         public QueryViewModel[] Queries { get; private set; }
 
-        [Observable]
         public bool HasQueries => Queries?.Any() ?? false;
 
-        [Observable]
         public bool StayOnTop { get; private set; }
 
         public async Task Initialize()
@@ -90,6 +83,8 @@ namespace JiraToolkit
         {
             try
             {
+                var options = new OptionsViewModel(); // TODO: Load from some files.
+
                 var dto = JsonConvert.DeserializeObject<Configuration>(json);
                 if (dto == null)
                 {
@@ -97,9 +92,9 @@ namespace JiraToolkit
                     Environment.Exit(-1);
                 }
 
-                Environments = dto.Environments?.Where(x => x != null).Select((x) => new EnvironmentViewModel(x)).ToArray() ?? Array.Empty<EnvironmentViewModel>();
-                Queries = dto.Queries?.Where(x => x != null).Select(x => new QueryViewModel() { Name = x.Name, Url = x.Url }).ToArray() ?? Array.Empty<QueryViewModel>();
-                StayOnTop = dto.StayOnTop ?? false;
+                Environments = dto.Environments?.Where(x => x != null).Select((x) => new EnvironmentViewModel(x, options)).ToArray() ?? Array.Empty<EnvironmentViewModel>();
+                Queries = dto.Queries?.Where(x => x != null).Select(x => new QueryViewModel(options) { Name = x.Name, Url = x.Url }).ToArray() ?? Array.Empty<QueryViewModel>();
+                StayOnTop = options.StayOnTop;
             }
             catch (Exception e)
             {
@@ -121,7 +116,7 @@ namespace JiraToolkit
                     CreateConfigurationFolder();
                     await CreateConfigurationFile();
                     MessageBox.Show(
-                        "A default configuration file has been created. Adjust the configuration file to your needs and restart your application.","Information");
+                        "A default configuration file has been created. Adjust the configuration file to your needs and restart your application.", "Information");
                     Process.Start(configurationFilePath);
                 }
 
@@ -136,7 +131,7 @@ namespace JiraToolkit
                 var directoryInfo = Directory.CreateDirectory(configurationFolderPath);
                 directoryInfo.SetAccessControl(new DirectorySecurity(configurationFolderPath, AccessControlSections.Owner));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.Fatal("Could not create configuration folder.", e);
                 MessageBox.Show("It was not possible to create a configuration folder. Please take a look at the logs.", "Error");
@@ -148,11 +143,13 @@ namespace JiraToolkit
         {
             try
             {
-                var file = File.Create(configurationFilePath);
-                byte[] bytes = Encoding.UTF8.GetBytes(Settings.Default.Configuration);
-                await file.WriteAsync(bytes, 0, bytes.Length, CancellationToken.None);
-                file.Close();
-            }catch(Exception e)
+                using (var file = new StreamWriter(configurationFilePath, false, Encoding.UTF8))
+                {
+                    await file.WriteAsync(Settings.Default.Configuration);
+                    file.Close();
+                }
+            }
+            catch (Exception e)
             {
                 logger.Fatal("Could not create configuration file.", e);
                 MessageBox.Show("It was not possible to create a configuration file. Please take a look at the logs.", "Error");

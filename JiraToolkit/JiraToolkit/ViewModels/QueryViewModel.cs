@@ -1,22 +1,35 @@
 ﻿using System;
 using System.Diagnostics;
-using Shuriken;
 
 namespace JiraToolkit.ViewModels
 {
-    internal class QueryViewModel : ObservableObject
+    internal class QueryViewModel : BaseViewModel
     {
-        public QueryViewModel() => OpenQueryCommand = new Command(ExecuteOpenQueryCommand, CanExecuteOpenQueryCommand);
+        readonly OptionsViewModel _options;
+        
+        string _parameter;
 
-        [Observable]
+        public QueryViewModel(OptionsViewModel options)
+        {
+            _options = options ?? throw new ArgumentNullException(nameof(options));
+
+            OpenQueryCommand = new Command(ExecuteOpenQueryCommand, CanExecuteOpenQueryCommand);
+        }
+
         public string Name { get; set; }
 
         public string Url { private get; set; }
 
-        [Observable]
-        public string Parameter { get; set; }
+        public string Parameter
+        {
+            get => _parameter;
+            set
+            {
+                _parameter = value;
+                NotifyPropertyChanged();
+            }
+        }
 
-        [Observable]
         public Command OpenQueryCommand { get; }
 
         bool CanExecuteOpenQueryCommand() => !string.IsNullOrWhiteSpace(Parameter) && !string.IsNullOrWhiteSpace(Url);
@@ -29,8 +42,14 @@ namespace JiraToolkit.ViewModels
                 throw new InvalidOperationException();
             }
 
-            var process = new Process { StartInfo = new ProcessStartInfo(query) };
-            process.Start();
+            using (Process.Start(query))
+            {
+            }
+
+            if (_options.ClearInputFieldAfterEnter)
+            {
+                Parameter = string.Empty;
+            }
         }
     }
 }

@@ -1,54 +1,52 @@
-﻿<controls:MetroWindow x:Class="JiraToolkit.MainWindow"
-                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      xmlns:jiraToolkit="clr-namespace:JiraToolkit"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      Title="Jira Toolkit"
-                      d:DataContext="{d:DesignInstance Type=jiraToolkit:MainViewModel}"
-                      x:ClassModifier="internal"
-                      Background="Black"
-                      Focusable="False"
-                      Foreground="PaleTurquoise"
-                      KeyUp="RefreshConfiguration"
-                      Loaded="Initialize"
-                      MouseDown="MoveWindow"
-                      ResizeMode="NoResize"
-                      ShowCloseButton="False"
-                      ShowTitleBar="False"
-                      SizeToContent="WidthAndHeight"
-                      Topmost="{Binding StayOnTop, Mode=OneWay}"
-                      WindowStyle="None"
-                      mc:Ignorable="d">
+﻿<controls:MetroWindow
+    x:Class="JiraToolkit.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:jiraToolkit="clr-namespace:JiraToolkit"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Jira Toolkit"
+    d:DataContext="{d:DesignInstance Type=jiraToolkit:MainViewModel}"
+    x:ClassModifier="internal"
+    Activated="MetroWindow_Activated"
+    Background="Black"
+    Focusable="False"
+    Foreground="PaleTurquoise"
+    KeyUp="RefreshConfiguration"
+    Loaded="Initialize"
+    MouseDown="MoveWindow"
+    ResizeMode="NoResize"
+    ShowCloseButton="False"
+    ShowInTaskbar="False"
+    ShowTitleBar="False"
+    SizeToContent="WidthAndHeight"
+    Topmost="{Binding StayOnTop, Mode=OneWay}"
+    WindowStyle="None"
+    mc:Ignorable="d">
     <StackPanel Orientation="Vertical">
-        <ItemsControl Focusable="False" ItemsSource="{Binding Environments, Mode=OneWay}"
-                      Visibility="{Binding HasEnvironments,Mode=OneWay,Converter={StaticResource BooleanToVisibilityConverter}}">
+        <ItemsControl
+            Focusable="False"
+            ItemsSource="{Binding Environments, Mode=OneWay}"
+            Visibility="{Binding HasEnvironments, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Width="100"
-                                   Margin="10,5,0,5"
-                                   HorizontalAlignment="Left"
-                                   Focusable="False"
-                                   Text="{Binding Name, Mode=OneTime}" />
-                        <ItemsControl Focusable="False" ItemsSource="{Binding Entries, Mode=OneTime}">
+                        <TextBlock
+                            Width="100"
+                            Margin="10,5,0,5"
+                            HorizontalAlignment="Left"
+                            Text="{Binding Name, Mode=OneTime}" />
+                        <ItemsControl ItemsSource="{Binding Entries, Mode=OneTime}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBox Grid.Column="0"
-                                                 controls:TextBoxHelper.Watermark="{Binding Prefix, Mode=TwoWay}"
-                                                 Focusable="True"
-                                                 KeyUp="OpenTicketNumber"
-                                                 Text="{Binding TicketNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                        <Button Grid.Column="1"
-                                                Command="{Binding OpenTicketCommand, Mode=OneTime}"
-                                                Content="GO" />
-                                    </Grid>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox
+                                            controls:TextBoxHelper.Watermark="{Binding Prefix, Mode=TwoWay}"
+                                            KeyDown="OpenTicketNumber"
+                                            Text="{Binding TicketNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <Button Command="{Binding OpenTicketCommand, Mode=OneTime}" Content="GO" />
+                                    </StackPanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -57,39 +55,23 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <TextBlock Width="100"
-                   Margin="10,5,0,5"
-                   HorizontalAlignment="Left"
-                   Focusable="False"
-                   Text="Queries"
-                   Visibility="{Binding HasQueries, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <TextBlock
+            Width="100"
+            Margin="10,5,0,5"
+            HorizontalAlignment="Left"
+            Text="Queries"
+            Visibility="{Binding HasQueries, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-        <ItemsControl Focusable="False"
-                      ItemsSource="{Binding Queries, Mode=OneWay}"
-                      Visibility="{Binding HasQueries, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <ItemsControl ItemsSource="{Binding Queries, Mode=OneWay}" Visibility="{Binding HasQueries, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBox Grid.Row="1"
-                                 Grid.Column="0"
-                                 controls:TextBoxHelper.Watermark="{Binding Name, Mode=TwoWay}"
-                                 Focusable="True"
-                                 KeyUp="OpenQueryCommand"
-                                 Text="{Binding Parameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Grid.Row="1"
-                                Grid.Column="1"
-                                Command="{Binding OpenQueryCommand, Mode=OneTime}"
-                                Content="GO" />
-                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox
+                            controls:TextBoxHelper.Watermark="{Binding Name, Mode=TwoWay}"
+                            KeyDown="OpenQueryCommand"
+                            Text="{Binding Parameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Command="{Binding OpenQueryCommand, Mode=OneTime}" Content="GO" />
+                    </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

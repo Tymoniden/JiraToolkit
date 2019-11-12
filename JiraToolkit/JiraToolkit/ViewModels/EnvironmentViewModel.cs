@@ -1,18 +1,21 @@
 using System.Collections.Generic;
-using System.Diagnostics;
 using JiraToolkit.Dtos;
 
 namespace JiraToolkit.ViewModels
 {
     internal class EnvironmentViewModel
     {
-        public EnvironmentViewModel(Environment environment)
+        private readonly OptionsViewModel _options;
+
+        public EnvironmentViewModel(Environment environment, OptionsViewModel options)
         {
+            _options = options ?? throw new System.ArgumentNullException(nameof(options));
+
             Name = environment.Name;
-            Entries = new List<EnvironmentEntryViewModel>();
+
             foreach (var prefix in environment.Prefixes)
             {
-                Entries.Add(new EnvironmentEntryViewModel
+                Entries.Add(new EnvironmentEntryViewModel(_options)
                 {
                     Root = environment.RootUrl,
                     Prefix = prefix
@@ -22,6 +25,6 @@ namespace JiraToolkit.ViewModels
 
         public string Name { get; }
 
-        public List<EnvironmentEntryViewModel> Entries { get; }
+        public List<EnvironmentEntryViewModel> Entries { get; } = new List<EnvironmentEntryViewModel>();
     }
 }

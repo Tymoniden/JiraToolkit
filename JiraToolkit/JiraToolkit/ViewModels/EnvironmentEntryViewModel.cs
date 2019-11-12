@@ -1,28 +1,47 @@
 ﻿using System.Diagnostics;
-using Shuriken;
 
 namespace JiraToolkit.ViewModels
 {
-    internal class EnvironmentEntryViewModel : ObservableObject
+    internal class EnvironmentEntryViewModel : BaseViewModel
     {
-        public EnvironmentEntryViewModel() => OpenTicketCommand = new Command(ExecuteOpenTicket, CanExecuteOpenTicket);
+        private readonly OptionsViewModel _options;
+        private string _ticketNumber;
+
+        public EnvironmentEntryViewModel(OptionsViewModel options)
+        {
+            _options = options ?? throw new System.ArgumentNullException(nameof(options));
+
+            OpenTicketCommand = new Command(ExecuteOpenTicket, CanExecuteOpenTicket);
+        }
 
         public string Prefix { get; set; }
 
         public string Root { private get; set; }
 
-        [Observable]
-        public string TicketNumber { get; set; }
+        public string TicketNumber
+        {
+            get => _ticketNumber;
+            set
+            {
+                _ticketNumber = value;
+                NotifyPropertyChanged();
+            }
+        }
 
-        [Observable]
         public Command OpenTicketCommand { get; }
 
         bool CanExecuteOpenTicket() => !string.IsNullOrWhiteSpace(TicketNumber);
 
         void ExecuteOpenTicket()
         {
-            var process = new Process { StartInfo = new ProcessStartInfo($"{Root}browse/{Prefix}-{TicketNumber}") };
-            process.Start();
+            using (Process.Start($"{Root}browse/{Prefix}-{TicketNumber}"))
+            {
+            }
+
+            if (_options.ClearInputFieldAfterEnter)
+            {
+                TicketNumber = string.Empty;
+            }
         }
     }
 }

@@ -12,8 +12,9 @@ namespace JiraToolkit
         public MainWindow()
         {
             InitializeComponent();
-
             DataContext = _viewmodel = new MainViewModel();
+
+            
         }
 
         void OpenTicketNumber(object sender, KeyEventArgs e)
@@ -60,6 +61,7 @@ namespace JiraToolkit
             {
                 return;
             }
+
             base.OnMouseLeftButtonDown(e);
 
             // Begin dragging the window
@@ -72,6 +74,14 @@ namespace JiraToolkit
             {
                 _viewmodel?.UpdateConfiguration();
                 e.Handled = true;
+            }
+        }
+
+        private void MetroWindow_Activated(object sender, System.EventArgs e)
+        {
+            if (!IsKeyboardFocusWithin)
+            {
+                
             }
         }
     }

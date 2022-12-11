@@ -2,8 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
-using log4net;
-using Shuriken.Monitoring;
+//using log4net;
 
 namespace JiraToolkit
 {
@@ -12,7 +11,7 @@ namespace JiraToolkit
     /// </summary>
     internal partial class App : Application
     {
-        static readonly ILog logger = LogManager.GetLogger(typeof(Application));
+        //static readonly ILog logger = LogManager.GetLogger(typeof(Application));
 
         [STAThread]
         public static void Main()
@@ -21,21 +20,12 @@ namespace JiraToolkit
             app.DispatcherUnhandledException += App_DispatcherUnhandledException;
             app.InitializeComponent();
 
-            var applicationMonitorScope = new ApplicationMonitorScope(new WpfNotificationContext(app.Dispatcher));
-            try
-            {
-                app.Run();
-            }
-            finally
-            {
-                applicationMonitorScope.Dispose()?.GetAwaiter().GetResult();
-            }
+            app.Run();
         }
 
         static void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-
-            logger.Fatal("An exception which terminates the application occurred", e.Exception);
+            //logger.Fatal("An exception which terminates the application occurred", e.Exception);
 
             var result = MessageBox.Show(
                 $"Do you want to create a bug report?{Environment.NewLine}This will open the log file and a browser to create a bug ticket.",

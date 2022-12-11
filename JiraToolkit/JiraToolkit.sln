@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29025.244
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraToolkit", "JiraToolkit\JiraToolkit.csproj", "{E50B7CB5-C3D4-42A1-8AEB-4A2A31B60DC3}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "JiraToolkit.Installation", "JiraToolkit.Installation\JiraToolkit.Installation.wixproj", "{DD7A534C-B95F-4EE5-A801-3A786FEC6CAC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IssueWatcher", "IssueWatcher\IssueWatcher.csproj", "{A6A002FC-5476-4946-B89B-D552425209E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +29,6 @@ Global
 		{DD7A534C-B95F-4EE5-A801-3A786FEC6CAC}.Release|Any CPU.ActiveCfg = Release|x86
 		{DD7A534C-B95F-4EE5-A801-3A786FEC6CAC}.Release|x86.ActiveCfg = Release|x86
 		{DD7A534C-B95F-4EE5-A801-3A786FEC6CAC}.Release|x86.Build.0 = Release|x86
-		{A6A002FC-5476-4946-B89B-D552425209E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6A002FC-5476-4946-B89B-D552425209E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6A002FC-5476-4946-B89B-D552425209E9}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A6A002FC-5476-4946-B89B-D552425209E9}.Debug|x86.Build.0 = Debug|Any CPU
-		{A6A002FC-5476-4946-B89B-D552425209E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6A002FC-5476-4946-B89B-D552425209E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6A002FC-5476-4946-B89B-D552425209E9}.Release|x86.ActiveCfg = Release|Any CPU
-		{A6A002FC-5476-4946-B89B-D552425209E9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

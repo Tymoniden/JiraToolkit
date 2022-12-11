@@ -11,15 +11,14 @@ using JiraToolkit.Dtos;
 using JiraToolkit.Properties;
 using JiraToolkit.ViewModels;
 using log4net;
-using Newtonsoft.Json;
-using Shuriken;
+
 using Environment = System.Environment;
 
 namespace JiraToolkit
 {
-    internal sealed class MainViewModel : ObservableObject
+    internal sealed class MainViewModel : BaseViewModel
     {
-        static readonly ILog logger = LogManager.GetLogger(typeof(Application));
+        //static readonly ILog logger = LogManager.GetLogger(typeof(Application));
 
         readonly string configurationFolderPath;
 
@@ -34,20 +33,27 @@ namespace JiraToolkit
             configurationFilePath = Path.Combine(configurationFolderPath, Settings.Default.ConfigurationFile);
         }
 
-        [Observable]
-        public EnvironmentViewModel[] Environments { get; private set; }
+        public EnvironmentViewModel[] Environments 
+        {
+            get => GetValue<EnvironmentViewModel[]>();
+            set => SetValue(value);
+        }
 
-        [Observable]
         public bool HasEnvironments => Environments?.Any() ?? false;
 
-        [Observable]
-        public QueryViewModel[] Queries { get; private set; }
+        public QueryViewModel[] Queries 
+        {
+            get => GetValue<QueryViewModel[]>();
+            set => SetValue(value);
+        }
 
-        [Observable]
         public bool HasQueries => Queries?.Any() ?? false;
 
-        [Observable]
-        public bool StayOnTop { get; private set; }
+        public bool StayOnTop 
+        {
+            get => GetValue<bool>();
+            set => SetValue(value);
+        }
 
         public async Task Initialize()
         {
@@ -69,7 +75,7 @@ namespace JiraToolkit
                 }
                 catch (Exception e)
                 {
-                    logger.Fatal("Could not read from configuration file.", e);
+                    //logger.Fatal("Could not read from configuration file.", e);
                     MessageBox.Show(
                         "Could not read from configuration file. Ensure your configuration file exists and is available for reading.",
                         "Could not read configuration file");

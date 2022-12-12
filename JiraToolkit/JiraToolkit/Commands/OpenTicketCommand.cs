@@ -1,22 +1,20 @@
-﻿using JiraToolkit.ViewModels;
-using System;
-using System.CodeDom;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace JiraToolkit.Commands
 {
     public class OpenTicketCommand : ICommand
     {
+        readonly string _root;
+        readonly string _prefix;
+
         public event EventHandler CanExecuteChanged;
 
-        public OpenTicketCommand()
+        public OpenTicketCommand(string root, string prefix)
         {
-
+            _root = root;
+            _prefix = prefix;
         }
 
         public bool CanExecute(object parameter)
@@ -31,8 +29,11 @@ namespace JiraToolkit.Commands
 
         public void Execute(object parameter)
         {
-            var process = new Process { StartInfo = new ProcessStartInfo($"{Root}browse/{Prefix}-{TicketNumber}") };
-            process.Start();
+            if(parameter is string ticketNumber)
+            {
+                var process = new Process { StartInfo = new ProcessStartInfo($"{_root}browse/{_prefix}-{ticketNumber}") };
+                process.Start();
+            }
         }
     }
 }

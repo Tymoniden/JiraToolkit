@@ -10,7 +10,6 @@ using System.Windows;
 using JiraToolkit.Dtos;
 using JiraToolkit.Properties;
 using JiraToolkit.ViewModels;
-using log4net;
 
 using Environment = System.Environment;
 
@@ -18,8 +17,6 @@ namespace JiraToolkit
 {
     internal sealed class MainViewModel : BaseViewModel
     {
-        //static readonly ILog logger = LogManager.GetLogger(typeof(Application));
-
         readonly string configurationFolderPath;
 
         readonly string configurationFilePath;
@@ -73,9 +70,8 @@ namespace JiraToolkit
                 {
                     json = File.ReadAllText(configurationFilePath);
                 }
-                catch (Exception e)
+                catch
                 {
-                    //logger.Fatal("Could not read from configuration file.", e);
                     MessageBox.Show(
                         "Could not read from configuration file. Ensure your configuration file exists and is available for reading.",
                         "Could not read configuration file");
@@ -107,10 +103,9 @@ namespace JiraToolkit
                 Queries = dto.Queries?.Where(x => x != null).Select(x => new QueryViewModel() { Name = x.Name, Url = x.Url }).ToArray() ?? Array.Empty<QueryViewModel>();
                 StayOnTop = dto.StayOnTop ?? false;
             }
-            catch (Exception e)
+            catch
             {
                 MessageBox.Show("Your configuration file is invalid, please check your configuration file for errors.", "Corrupt Configuration");
-                logger.Fatal("Invalid configuration file.", e);
                 MessageBox.Show("Your configuration file is invalid, please check your configuration file for errors.", "Error");
                 Environment.Exit(-1);
             }
@@ -142,9 +137,8 @@ namespace JiraToolkit
                 var directoryInfo = Directory.CreateDirectory(configurationFolderPath);
                 directoryInfo.SetAccessControl(new DirectorySecurity(configurationFolderPath, AccessControlSections.Owner));
             }
-            catch(Exception e)
+            catch
             {
-                logger.Fatal("Could not create configuration folder.", e);
                 MessageBox.Show("It was not possible to create a configuration folder. Please take a look at the logs.", "Error");
                 Environment.Exit(-1);
             }
@@ -158,9 +152,9 @@ namespace JiraToolkit
                 byte[] bytes = Encoding.UTF8.GetBytes(Settings.Default.Configuration);
                 await file.WriteAsync(bytes, 0, bytes.Length, CancellationToken.None);
                 file.Close();
-            }catch(Exception e)
+            }
+            catch
             {
-                logger.Fatal("Could not create configuration file.", e);
                 MessageBox.Show("It was not possible to create a configuration file. Please take a look at the logs.", "Error");
                 Environment.Exit(-1);
             }

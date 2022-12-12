@@ -1,23 +1,30 @@
-﻿using System;
+﻿using JiraToolkit.Commands;
+using System;
 using System.Diagnostics;
-using Shuriken;
+using System.Windows.Input;
 
 namespace JiraToolkit.ViewModels
 {
-    internal class QueryViewModel : ObservableObject
+    internal class QueryViewModel : BaseViewModel
     {
-        public QueryViewModel() => OpenQueryCommand = new Command(ExecuteOpenQueryCommand, CanExecuteOpenQueryCommand);
+        public QueryViewModel() => OpenQueryCommand = new OpenQueryCommand(string.Empty);
 
-        [Observable]
-        public string Name { get; set; }
+        public string Name 
+        {
+            get => GetValue<string>();
+            set => SetValue(value);
+        }
 
-        public string Url { private get; set; }
+        public string Url { get; set; }
 
-        [Observable]
-        public string Parameter { get; set; }
+        public string Parameter 
+        {
+            get => GetValue<string>();
+            set => SetValue(value);
+        }
 
-        [Observable]
-        public Command OpenQueryCommand { get; }
+        
+        public ICommand OpenQueryCommand { get; }
 
         bool CanExecuteOpenQueryCommand() => !string.IsNullOrWhiteSpace(Parameter) && !string.IsNullOrWhiteSpace(Url);
 

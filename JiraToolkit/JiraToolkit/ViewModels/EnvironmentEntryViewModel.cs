@@ -8,8 +8,7 @@ namespace JiraToolkit.ViewModels
     {
         public EnvironmentEntryViewModel()
         {
-            OpenTicketCommand = new OpenTicketCommand();
-                //new Command(ExecuteOpenTicket, CanExecuteOpenTicket);
+            OpenTicketCommand = new OpenTicketCommand(string.Empty, string.Empty);
         }
 
         public string Prefix { get; set; }

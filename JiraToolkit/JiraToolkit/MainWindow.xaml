@@ -47,6 +47,7 @@
                                                  Text="{Binding TicketNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                         <Button Grid.Column="1"
                                                 Command="{Binding OpenTicketCommand, Mode=OneTime}"
+                                                CommandParameter="{Binding TicketNumber, Mode=OneWay}"
                                                 Content="GO" />
                                     </Grid>
                                 </DataTemplate>

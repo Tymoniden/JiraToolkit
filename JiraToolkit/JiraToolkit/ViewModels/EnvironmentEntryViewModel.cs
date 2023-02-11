@@ -6,14 +6,14 @@ namespace JiraToolkit.ViewModels
 {
     internal class EnvironmentEntryViewModel : BaseViewModel
     {
-        public EnvironmentEntryViewModel()
+
+        public EnvironmentEntryViewModel(string root, string prefix)
         {
-            OpenTicketCommand = new OpenTicketCommand(string.Empty, string.Empty);
+            Prefix = prefix;
+            OpenTicketCommand = new OpenTicketCommand(root, prefix);
         }
 
         public string Prefix { get; set; }
-
-        public string Root { private get; set; }
 
         public string TicketNumber 
         {

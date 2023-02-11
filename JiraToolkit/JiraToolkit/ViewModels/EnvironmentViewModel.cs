@@ -12,11 +12,7 @@ namespace JiraToolkit.ViewModels
             Entries = new List<EnvironmentEntryViewModel>();
             foreach (var prefix in environment.Prefixes)
             {
-                Entries.Add(new EnvironmentEntryViewModel
-                {
-                    Root = environment.RootUrl,
-                    Prefix = prefix
-                });
+                Entries.Add(new EnvironmentEntryViewModel(environment.RootUrl, prefix));
             }
         }
 

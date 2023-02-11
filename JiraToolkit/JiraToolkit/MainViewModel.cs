@@ -10,7 +10,7 @@ using System.Windows;
 using JiraToolkit.Dtos;
 using JiraToolkit.Properties;
 using JiraToolkit.ViewModels;
-
+using Newtonsoft.Json;
 using Environment = System.Environment;
 
 namespace JiraToolkit

@@ -17,7 +17,15 @@ namespace JiraToolkit.Commands
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            if(parameter is string param)
+            {
+                if (!string.IsNullOrEmpty(param))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void Execute(object parameter)
@@ -30,7 +38,7 @@ namespace JiraToolkit.Commands
                     throw new InvalidOperationException();
                 }
 
-                var process = new Process { StartInfo = new ProcessStartInfo(query) };
+                var process = new Process { StartInfo = new ProcessStartInfo(query) { UseShellExecute = true } };
                 process.Start();
             }
         }

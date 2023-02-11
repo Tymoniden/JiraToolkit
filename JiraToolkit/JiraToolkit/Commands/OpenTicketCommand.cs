@@ -31,7 +31,7 @@ namespace JiraToolkit.Commands
         {
             if(parameter is string ticketNumber)
             {
-                var process = new Process { StartInfo = new ProcessStartInfo($"{_root}browse/{_prefix}-{ticketNumber}") };
+                var process = new Process { StartInfo = new ProcessStartInfo($"{_root}browse/{_prefix}-{ticketNumber}") { UseShellExecute = true } };
                 process.Start();
             }
         }

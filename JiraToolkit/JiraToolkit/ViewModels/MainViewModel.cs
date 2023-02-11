@@ -9,11 +9,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using JiraToolkit.Dtos;
 using JiraToolkit.Properties;
-using JiraToolkit.ViewModels;
 using Newtonsoft.Json;
 using Environment = System.Environment;
 
-namespace JiraToolkit
+namespace JiraToolkit.ViewModels
 {
     internal sealed class MainViewModel : BaseViewModel
     {
@@ -30,7 +29,7 @@ namespace JiraToolkit
             configurationFilePath = Path.Combine(configurationFolderPath, Settings.Default.ConfigurationFile);
         }
 
-        public EnvironmentViewModel[] Environments 
+        public EnvironmentViewModel[] Environments
         {
             get => GetValue<EnvironmentViewModel[]>();
             set => SetValue(value);
@@ -38,7 +37,7 @@ namespace JiraToolkit
 
         public bool HasEnvironments => Environments?.Any() ?? false;
 
-        public QueryViewModel[] Queries 
+        public QueryViewModel[] Queries
         {
             get => GetValue<QueryViewModel[]>();
             set => SetValue(value);
@@ -46,7 +45,7 @@ namespace JiraToolkit
 
         public bool HasQueries => Queries?.Any() ?? false;
 
-        public bool StayOnTop 
+        public bool StayOnTop
         {
             get => GetValue<bool>();
             set => SetValue(value);
@@ -122,7 +121,7 @@ namespace JiraToolkit
                     CreateConfigurationFolder();
                     await CreateConfigurationFile();
                     MessageBox.Show(
-                        "A default configuration file has been created. Adjust the configuration file to your needs and restart your application.","Information");
+                        "A default configuration file has been created. Adjust the configuration file to your needs and restart your application.", "Information");
                     Process.Start(configurationFilePath);
                 }
 
